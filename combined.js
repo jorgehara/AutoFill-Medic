@@ -143,8 +143,53 @@ function fillForm(numAfiliado, diagnostico) {
                                                                                                             iconButton.click();
                                                                                                             console.log("paso 16: Ícono clickeado para abrir otro popup");
 
-                                                                                                            // Aquí puedes agregar el código para rellenar el nuevo formulario
-                                                                                                            // ...
+                                                                                                            // 1️⃣7️⃣ Buscar el primer input de observaciones y tipear el código de diagnóstico
+                                                                                                            setTimeout(() => {
+                                                                                                                let observacionesInput1 = document.querySelector("textarea#of-observaciones[preguntaid='221']");
+                                                                                                                if (observacionesInput1) {
+                                                                                                                    observacionesInput1.value = diagnostico;
+                                                                                                                    observacionesInput1.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                    console.log("paso 17: Código de diagnóstico ingresado en el primer input de observaciones");
+                                                                                                                } else {
+                                                                                                                    console.error("Primer input de observaciones no encontrado");
+                                                                                                                }
+
+                                                                                                                // 1️⃣8️⃣ Buscar el segundo input de observaciones y tipear el código de diagnóstico
+                                                                                                                setTimeout(() => {
+                                                                                                                    let observacionesInput2 = document.querySelector("textarea#of-observaciones[preguntaid='223']");
+                                                                                                                    if (observacionesInput2) {
+                                                                                                                        observacionesInput2.value = diagnostico;
+                                                                                                                        observacionesInput2.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                        console.log("paso 18: Código de diagnóstico ingresado en el segundo input de observaciones");
+                                                                                                                    } else {
+                                                                                                                        console.error("Segundo input de observaciones no encontrado");
+                                                                                                                    }
+
+                                                                                                                    // 1️⃣9️⃣ Agregar "CONSULTA GRAL." al input con preguntaid 224
+                                                                                                                    setTimeout(() => {
+                                                                                                                        let observacionesInput3 = document.querySelector("textarea#of-observaciones[preguntaid='224']");
+                                                                                                                        if (observacionesInput3) {
+                                                                                                                            observacionesInput3.value = "CONSULTA GRAL.";
+                                                                                                                            observacionesInput3.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                            console.log("paso 19: 'CONSULTA GRAL.' ingresado en el input de observaciones con preguntaid 224");
+                                                                                                                        } else {
+                                                                                                                            console.error("Input de observaciones con preguntaid 224 no encontrado");
+                                                                                                                        }
+
+                                                                                                                        // 2️⃣0️⃣ Agregar "REGISTRO TA " al input con preguntaid 222
+                                                                                                                        setTimeout(() => {
+                                                                                                                            let observacionesInput4 = document.querySelector("textarea#of-observaciones[preguntaid='222']");
+                                                                                                                            if (observacionesInput4) {
+                                                                                                                                observacionesInput4.value = "REGISTRO TA ";
+                                                                                                                                observacionesInput4.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                                console.log("paso 20: 'REGISTRO TA ' ingresado en el input de observaciones con preguntaid 222");
+                                                                                                                            } else {
+                                                                                                                                console.error("Input de observaciones con preguntaid 222 no encontrado");
+                                                                                                                            }
+                                                                                                                        }, 500); // Esperar 500ms antes de tipear "REGISTRO TA " en el input con preguntaid 222
+                                                                                                                    }, 500); // Esperar 500ms antes de tipear "CONSULTA GRAL." en el input con preguntaid 224
+                                                                                                                }, 500); // Esperar 500ms antes de tipear el código de diagnóstico en el segundo input
+                                                                                                            }, 500); // Esperar 500ms antes de tipear el código de diagnóstico en el primer input
                                                                                                         } else {
                                                                                                             console.error("Ícono no encontrado");
                                                                                                         }
