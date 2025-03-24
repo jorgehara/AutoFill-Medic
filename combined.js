@@ -70,6 +70,113 @@ function fillForm(numAfiliado, diagnostico) {
                                             let enterEvent = new KeyboardEvent("keydown", { key: "Enter", keyCode: 13, bubbles: true });
                                             document.activeElement.dispatchEvent(enterEvent);
                                             console.log("paso 7: ENTER simulado");
+
+                                            // 8️⃣ Buscar el ícono del botón de búsqueda de práctica y hacer clic
+                                            setTimeout(() => {
+                                                let searchPracticeButton = document.getElementById("pe-btn-bsq-practica");
+                                                if (searchPracticeButton) {
+                                                    searchPracticeButton.click();
+                                                    console.log("paso 8: Botón de búsqueda de práctica clickeado");
+
+                                                    // 9️⃣ Seleccionar "AMBULATORIO" en el dropdown de modalidad
+                                                    setTimeout(() => {
+                                                        let modalidadDropdown = document.getElementById("bsq_modalidad_practica");
+                                                        if (modalidadDropdown) {
+                                                            modalidadDropdown.value = "1"; // Valor para "AMBULATORIO"
+                                                            modalidadDropdown.dispatchEvent(new Event("change", { bubbles: true }));
+                                                            console.log("paso 9: Modalidad 'AMBULATORIO' seleccionada");
+
+                                                            // 🔟 Seleccionar "MEDICO DE CABECERA" en el dropdown de agrupador
+                                                            setTimeout(() => {
+                                                                let agrupadorDropdown = document.getElementById("bsq_agrupador_practica");
+                                                                if (agrupadorDropdown) {
+                                                                    agrupadorDropdown.value = "41"; // Valor para "MEDICO DE CABECERA"
+                                                                    agrupadorDropdown.dispatchEvent(new Event("change", { bubbles: true }));
+                                                                    console.log("paso 10: Agrupador 'MEDICO DE CABECERA' seleccionado");
+
+                                                                    // 1️⃣1️⃣ Seleccionar "MEDICO CABECERA" en el dropdown de módulo
+                                                                    setTimeout(() => {
+                                                                        let moduloDropdown = document.getElementById("bsq_modulo_practica");
+                                                                        if (moduloDropdown) {
+                                                                            moduloDropdown.value = "1"; // Valor para "MEDICO CABECERA"
+                                                                            moduloDropdown.dispatchEvent(new Event("change", { bubbles: true }));
+                                                                            console.log("paso 11: Módulo 'MEDICO CABECERA' seleccionado");
+
+                                                                        } else {
+                                                                            console.error("Dropdown de módulo no encontrado");
+                                                                        }
+                                                                    }, 500); // Esperar 500ms antes de seleccionar el módulo
+                                                                    // 1️⃣2️⃣ Buscar el input de descripción de práctica, escribir "pres" y simular ENTER
+                                                                    setTimeout(() => {
+                                                                        let descPracticaInput = document.getElementById("bsq_desc_practica");
+                                                                        if (descPracticaInput) {
+                                                                            descPracticaInput.value = "pres";
+                                                                            descPracticaInput.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                            descPracticaInput.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", keyCode: 13, bubbles: true }));
+                                                                            console.log("paso 12: 'pres' ingresado y ENTER simulado en el input de descripción de práctica");
+
+                                                                            // 1️⃣3️⃣ Buscar y hacer clic en el botón de filtro de prácticas
+                                                                            setTimeout(() => {
+                                                                                let filterButton = document.querySelector("#pe-form-filtro-practicas > div:nth-child(3) > div.col-sm-offset-2.col-sm-2 > button");
+                                                                                if (filterButton) {
+                                                                                    filterButton.click();
+                                                                                    console.log("paso 13: Botón de filtro de prácticas clickeado");
+
+                                                                                    // 1️⃣4️⃣ Seleccionar la primera opción de la lista de prácticas
+                                                                                    setTimeout(() => {
+                                                                                        let firstOptionCheckbox = document.querySelector("#pe-listado-bsq-practicas > table > tbody > tr > td:nth-child(1) > input[type=checkbox]");
+                                                                                        if (firstOptionCheckbox) {
+                                                                                            firstOptionCheckbox.click();
+                                                                                            console.log("paso 14: Primera opción de la lista de prácticas seleccionada");
+
+                                                                                            // 1️⃣5️⃣ Hacer clic en el botón "Aceptar"
+                                                                                            setTimeout(() => {
+                                                                                                let acceptButton = document.querySelector("#pe-btn-agregar-practicas");
+                                                                                                if (acceptButton) {
+                                                                                                    acceptButton.click();
+                                                                                                    console.log("paso 15: Botón 'Aceptar' clickeado");
+
+                                                                                                    // 1️⃣6️⃣ Buscar el ícono que abrirá otro popup
+                                                                                                    setTimeout(() => {
+                                                                                                        let iconButton = document.querySelector("#pe-btn-form-427109");
+                                                                                                        if (iconButton) {
+                                                                                                            iconButton.click();
+                                                                                                            console.log("paso 16: Ícono clickeado para abrir otro popup");
+
+                                                                                                            // Aquí puedes agregar el código para rellenar el nuevo formulario
+                                                                                                            // ...
+                                                                                                        } else {
+                                                                                                            console.error("Ícono no encontrado");
+                                                                                                        }
+                                                                                                    }, 500); // Esperar 500ms antes de hacer clic en el ícono
+                                                                                                } else {
+                                                                                                    console.error("Botón 'Aceptar' no encontrado");
+                                                                                                }
+                                                                                            }, 500); // Esperar 500ms antes de hacer clic en el botón "Aceptar"
+                                                                                        } else {
+                                                                                            console.error("Checkbox de la primera opción no encontrado");
+                                                                                        }
+                                                                                    }, 500); // Esperar 500ms antes de seleccionar la primera opción
+                                                                                } else {
+                                                                                    console.error("Botón de filtro de prácticas no encontrado");
+                                                                                }
+                                                                            }, 500); // Esperar 500ms antes de hacer clic en el botón de filtro de prácticas
+                                                                        } else {
+                                                                            console.error("Input de descripción de práctica no encontrado");
+                                                                        }
+                                                                    }, 500); // Esperar 500ms antes de escribir "pres" y simular ENTER
+                                                                } else {
+                                                                    console.error("Dropdown de agrupador no encontrado");
+                                                                }
+                                                            }, 500); // Esperar 500ms antes de seleccionar el agrupador
+                                                        } else {
+                                                            console.error("Dropdown de modalidad no encontrado");
+                                                        }
+                                                    }, 500); // Esperar 500ms antes de seleccionar la modalidad
+                                                } else {
+                                                    console.error("Botón de búsqueda de práctica no encontrado");
+                                                }
+                                            }, 500); // Esperar 500ms antes de hacer clic en el botón de búsqueda de práctica
                                         }, 500);
                                     }, 500);
                                 }, 500); // Esperar 500ms antes de seleccionar el primer resultado
