@@ -10,8 +10,6 @@ document.getElementById("fillForm").addEventListener("click", async () => {
     // vaciar todo el formulario por completo antes de rellenar este es el boton cancelar que abre el popup, que dice, está seguro que deseas limpiar el formulario document.querySelector("#pe-btn-cancelar-orden").click();
     // este es el boton de confirmar, limpiar todos los campos del formulario document.querySelector("#pe-btn-confirmar-cancelar-orden").click();
 
-    
-
     // Enviar mensaje al script de contenido para rellenar el formulario
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
@@ -227,6 +225,17 @@ function fillForm(numAfiliado, diagnostico, presionAlta, presionBaja) {
                                                                                                                                     } else {
                                                                                                                                         console.error("Input de presión baja no encontrado");
                                                                                                                                     }
+
+                                                                                                                                    // 2️⃣3️⃣ Hacer clic en el botón "Guardar"
+                                                                                                                                    setTimeout(() => {
+                                                                                                                                        let saveButton = document.querySelector("#of-aceptar");
+                                                                                                                                        if (saveButton) {
+                                                                                                                                            saveButton.click();
+                                                                                                                                            console.log("paso 23: Botón 'Guardar' clickeado");
+                                                                                                                                        } else {
+                                                                                                                                            console.error("Botón 'Guardar' no encontrado");
+                                                                                                                                        }
+                                                                                                                                    }, 500); // Esperar 500ms antes de hacer clic en el botón "Guardar"
                                                                                                                                 }, 500); // Esperar 500ms antes de tipear la presión baja
                                                                                                                             }, 500); // Esperar 500ms antes de tipear la presión alta
                                                                                                                         }, 500); // Esperar 500ms antes de tipear "REGISTRO TA " en el input con preguntaid 222
