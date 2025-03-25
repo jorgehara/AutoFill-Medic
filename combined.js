@@ -4,17 +4,24 @@ document.getElementById("fillForm").addEventListener("click", async () => {
 
     let numAfiliado = document.getElementById("numAfiliado").value;
     let diagnostico = document.getElementById("diagnostico").value;
+    let presionAlta = document.getElementById("presionAlta").value;
+    let presionBaja = document.getElementById("presionBaja").value;
+
+    // vaciar todo el formulario por completo antes de rellenar este es el boton cancelar que abre el popup, que dice, está seguro que deseas limpiar el formulario document.querySelector("#pe-btn-cancelar-orden").click();
+    // este es el boton de confirmar, limpiar todos los campos del formulario document.querySelector("#pe-btn-confirmar-cancelar-orden").click();
+
+    
 
     // Enviar mensaje al script de contenido para rellenar el formulario
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: fillForm,
-        args: [numAfiliado, diagnostico]
+        args: [numAfiliado, diagnostico, presionAlta, presionBaja]
     });
 });
 
 // Función que se ejecuta en el contexto de la página web para rellenar el formulario
-function fillForm(numAfiliado, diagnostico) {
+function fillForm(numAfiliado, diagnostico, presionAlta, presionBaja) {
     try {
         // 1️⃣ Escribir el número de afiliado
         let inputAfiliado = document.getElementById("pe-n_afiliado");
@@ -145,19 +152,30 @@ function fillForm(numAfiliado, diagnostico) {
 
                                                                                                             // 1️⃣7️⃣ Buscar el primer input de observaciones y tipear el código de diagnóstico
                                                                                                             setTimeout(() => {
-                                                                                                                let observacionesInput1 = document.querySelector("textarea#of-observaciones[preguntaid='221']");
-                                                                                                                if (observacionesInput1) {
-                                                                                                                    observacionesInput1.value = diagnostico;
-                                                                                                                    observacionesInput1.dispatchEvent(new Event("input", { bubbles: true }));
-                                                                                                                    console.log("paso 17: Código de diagnóstico ingresado en el primer input de observaciones");
+                                                                                                                let presionAltaInput = document.querySelector(".of-form-control.ofl-input.ofl-arterial.of-ta-left");
+                                                                                                                if (presionAltaInput) {
+                                                                                                                    presionAltaInput.value = presionAlta;
+                                                                                                                    presionAltaInput.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                    console.log("paso 17: Presión alta ingresada en el input correspondiente");
                                                                                                                 } else {
-                                                                                                                    console.error("Primer input de observaciones no encontrado");
+                                                                                                                    console.error("Input de presión alta no encontrado");
                                                                                                                 }
 
                                                                                                                 // 1️⃣8️⃣ Buscar el segundo input de observaciones y tipear el código de diagnóstico
                                                                                                                 setTimeout(() => {
-                                                                                                                    let observacionesInput2 = document.querySelector("textarea#of-observaciones[preguntaid='223']");
-                                                                                                                    if (observacionesInput2) {
+                                                                                                                    let observacionesInput1 = document.querySelector("textarea#of-observaciones[preguntaid='221']");
+                                                                                                                    if (observacionesInput1) {
+                                                                                                                        observacionesInput1.value = diagnostico;
+                                                                                                                        observacionesInput1.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                        console.log("paso 18: Código de diagnóstico ingresado en el primer input de observaciones");
+                                                                                                                    } else {
+                                                                                                                        console.error("Primer input de observaciones no encontrado");
+                                                                                                                    }
+                                                                                                                
+                                                                                                                    // 1️⃣9️⃣ Buscar el segundo input de observaciones y tipear el código de diagnóstico
+                                                                                                                    setTimeout(() => {
+                                                                                                                        let observacionesInput2 = document.querySelector("textarea#of-observaciones[preguntaid='223']");
+                                                                                                                        if (observacionesInput2) {
                                                                                                                         observacionesInput2.value = diagnostico;
                                                                                                                         observacionesInput2.dispatchEvent(new Event("input", { bubbles: true }));
                                                                                                                         console.log("paso 18: Código de diagnóstico ingresado en el segundo input de observaciones");
@@ -180,16 +198,42 @@ function fillForm(numAfiliado, diagnostico) {
                                                                                                                         setTimeout(() => {
                                                                                                                             let observacionesInput4 = document.querySelector("textarea#of-observaciones[preguntaid='222']");
                                                                                                                             if (observacionesInput4) {
-                                                                                                                                observacionesInput4.value = "REGISTRO TA ";
+
+                                                                                                                                observacionesInput4.value = "REGISTRO TA "+ presionAlta + "/" + presionBaja;
                                                                                                                                 observacionesInput4.dispatchEvent(new Event("input", { bubbles: true }));
                                                                                                                                 console.log("paso 20: 'REGISTRO TA ' ingresado en el input de observaciones con preguntaid 222");
                                                                                                                             } else {
                                                                                                                                 console.error("Input de observaciones con preguntaid 222 no encontrado");
                                                                                                                             }
+
+                                                                                                                            // 2️⃣1️⃣ Agregar presion alta al input correspondiente
+                                                                                                                            setTimeout(() => {
+                                                                                                                                let presionAltaInput = document.querySelector("#modal-formulario-contenido > div > section > div > div:nth-child(1) > div:nth-child(3) > div.of-respuesta-corta.of-separado.ofl-incompleto.of-ph-ta > div > input.of-form-control.ofl-input.ofl-arterial.of-ta-left");
+                                                                                                                                if (presionAltaInput) {
+                                                                                                                                    presionAltaInput.value = presionAlta;
+                                                                                                                                    presionAltaInput.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                                    console.log("paso 21: Presión alta ingresada en el input correspondiente");
+                                                                                                                                } else {
+                                                                                                                                    console.error("Input de presión alta no encontrado");
+                                                                                                                                }
+
+                                                                                                                                // 2️⃣2️⃣ Agregar presion baja al input correspondiente
+                                                                                                                                setTimeout(() => {
+                                                                                                                                    let presionBajaInput = document.querySelector("#tension-2-1");
+                                                                                                                                    if (presionBajaInput) {
+                                                                                                                                        presionBajaInput.value = presionBaja;
+                                                                                                                                        presionBajaInput.dispatchEvent(new Event("input", { bubbles: true }));
+                                                                                                                                        console.log("paso 22: Presión baja ingresada en el input correspondiente");
+                                                                                                                                    } else {
+                                                                                                                                        console.error("Input de presión baja no encontrado");
+                                                                                                                                    }
+                                                                                                                                }, 500); // Esperar 500ms antes de tipear la presión baja
+                                                                                                                            }, 500); // Esperar 500ms antes de tipear la presión alta
                                                                                                                         }, 500); // Esperar 500ms antes de tipear "REGISTRO TA " en el input con preguntaid 222
                                                                                                                     }, 500); // Esperar 500ms antes de tipear "CONSULTA GRAL." en el input con preguntaid 224
                                                                                                                 }, 500); // Esperar 500ms antes de tipear el código de diagnóstico en el segundo input
                                                                                                             }, 500); // Esperar 500ms antes de tipear el código de diagnóstico en el primer input
+                                                                                                         }, 500); // Esperar 500ms antes de hacer clic en el ícono
                                                                                                         } else {
                                                                                                             console.error("Ícono no encontrado");
                                                                                                         }
